@@ -44,6 +44,11 @@ class SleepTrackerViewModel(val database: SleepDatabaseDao, application: Applica
     val clearButtonIsVisible = Transformations.map(nights) {
         it?.isNotEmpty()
     }
+
+    private val _showSnackbarEvent = MutableLiveData<Boolean>()
+    val showSnackbarEvent: LiveData<Boolean>
+        get() = _showSnackbarEvent
+
     /**
      * Converted nights to Spanned for displaying.
      */
@@ -156,12 +161,17 @@ class SleepTrackerViewModel(val database: SleepDatabaseDao, application: Applica
             // And clear tonight since it's no longer in the database
             tonight.value = null
         }
+        _showSnackbarEvent.value = true
     }
 
     private suspend fun clear() {
         withContext(Dispatchers.IO) {
             database.clear()
         }
+    }
+
+    fun doneShowingSnackbar() {
+        _showSnackbarEvent.value = false
     }
 
     /**
