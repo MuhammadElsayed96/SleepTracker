@@ -10,9 +10,7 @@ import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.formatNights
 import kotlinx.coroutines.*
 
-class SleepTrackerViewModel(
-        val database: SleepDatabaseDao,
-        application: Application) : AndroidViewModel(application) {
+class SleepTrackerViewModel(val database: SleepDatabaseDao, application: Application) : AndroidViewModel(application) {
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -35,6 +33,17 @@ class SleepTrackerViewModel(
 
     private val nights = database.getAllNights()
 
+    val startButtonIsVisible = Transformations.map(tonight) {
+        null == it
+    }
+
+    val stopButtonIsVisible = Transformations.map(tonight) {
+        null != it
+    }
+
+    val clearButtonIsVisible = Transformations.map(nights) {
+        it?.isNotEmpty()
+    }
     /**
      * Converted nights to Spanned for displaying.
      */
