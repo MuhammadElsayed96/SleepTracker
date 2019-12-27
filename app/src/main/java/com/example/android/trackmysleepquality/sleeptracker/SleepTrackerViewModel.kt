@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
-import com.example.android.trackmysleepquality.formatNights
 import kotlinx.coroutines.*
 
 class SleepTrackerViewModel(val database: SleepDatabaseDao, application: Application) : AndroidViewModel(application) {
@@ -48,13 +47,6 @@ class SleepTrackerViewModel(val database: SleepDatabaseDao, application: Applica
     private val _showSnackbarEvent = MutableLiveData<Boolean>()
     val showSnackbarEvent: LiveData<Boolean>
         get() = _showSnackbarEvent
-
-    /**
-     * Converted nights to Spanned for displaying.
-     */
-    val nightString = Transformations.map(nights) { nights ->
-        formatNights(nights, application.resources)
-    }
 
     /**
      * Variable that tells the Fragment to navigate to a specific [SleepQualityFragment]
