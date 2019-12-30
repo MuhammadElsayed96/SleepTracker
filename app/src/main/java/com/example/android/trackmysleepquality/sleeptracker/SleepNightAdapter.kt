@@ -12,15 +12,15 @@ class SleepNightAdapter(val clickListener: SleepNightListener)
     : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(DiffNightCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(clickListener, getItem(position)!!)
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.createFrom(parent)
     }
 
-    class ViewHolder private constructor(private val binding: ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(private val binding: ListItemSleepNightBinding)
+        : RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun createFrom(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -29,7 +29,7 @@ class SleepNightAdapter(val clickListener: SleepNightListener)
             }
         }
 
-        fun bind(clickListener: SleepNightListener, item: SleepNight) {
+        fun bind(item: SleepNight, clickListener: SleepNightListener) {
             binding.sleep = item
             binding.clickListener = clickListener
             binding.executePendingBindings()

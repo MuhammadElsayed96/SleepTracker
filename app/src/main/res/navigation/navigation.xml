@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/sleep_tracker_fragment">
-
     <fragment
         android:id="@+id/sleep_tracker_fragment"
         android:name="com.example.android.trackmysleepquality.sleeptracker.SleepTrackerFragment"
