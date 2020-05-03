@@ -197,4 +197,3 @@ class SleepTrackerViewModel(val database: SleepDatabaseDao, application: Applica
 		viewModelJob.cancel()
 	}
 }
-
